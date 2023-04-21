@@ -1,0 +1,14 @@
+/x64
+/CMakeFiles
+/PlaneSweep.dir
+/PlaneSweepCUDA.dir
+/bin
+/.vs
+
+opencv_videoio_ffmpeg470_64.dll
+opencv_videoio_msmf470_64.dll
+opencv_videoio_msmf470_64d.dll
+opencv_world470.dll
+opencv_world470.pdb
+opencv_world470d.dll
+opencv_world470d.pdb

@@ -1,0 +1,364 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9B8DA5DE-5144-305B-8A4D-69AD60E3FC2E}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>PlaneSweep</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.1.props" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\bin\Debug\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PlaneSweep.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PlaneSweep</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\bin\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PlaneSweep.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PlaneSweep</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\bin\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">PlaneSweep.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">PlaneSweep</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">true</GenerateManifest>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\bin\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">PlaneSweep.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">PlaneSweep</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.exe</TargetExt>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</LinkIncremental>
+    <GenerateManifest Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">true</GenerateManifest>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "F:/Programmation/Ecole/GPU-Depth-Estimation/libs/opencv/build/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;CMAKE_INTDIR="Debug"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_DEBUG;_WINDOWS;CMAKE_INTDIR=\"Debug\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>Debug\PlaneSweepCUDA.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\lib\x64\cuda.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470d.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/Programmation/Ecole/GPU-Depth-Estimation/build/Debug/PlaneSweep.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Programmation/Ecole/GPU-Depth-Estimation/build/bin/Debug/PlaneSweep.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets -D_WINDOWS -Xcompiler=" /GR /EHsc" -Xcompiler=" -Zi -Ob0 -Od /RTC1" --generate-code=arch=compute_61,code=[compute_61,sm_61] -Xcompiler=-MTd</AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "F:/Programmation/Ecole/GPU-Depth-Estimation/libs/opencv/build/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="Release"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"Release\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>Release\PlaneSweepCUDA.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\lib\x64\cuda.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/Programmation/Ecole/GPU-Depth-Estimation/build/Release/PlaneSweep.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Programmation/Ecole/GPU-Depth-Estimation/build/bin/Release/PlaneSweep.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets -D_WINDOWS -Xcompiler=" /GR /EHsc" -Xcompiler="-O2 -Ob2" -DNDEBUG --generate-code=arch=compute_61,code=[compute_61,sm_61] -Xcompiler=-MT</AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "F:/Programmation/Ecole/GPU-Depth-Estimation/libs/opencv/build/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="MinSizeRel"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"MinSizeRel\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>MinSizeRel\PlaneSweepCUDA.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\lib\x64\cuda.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/Programmation/Ecole/GPU-Depth-Estimation/build/MinSizeRel/PlaneSweep.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Programmation/Ecole/GPU-Depth-Estimation/build/bin/MinSizeRel/PlaneSweep.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets -D_WINDOWS -Xcompiler=" /GR /EHsc" -Xcompiler="-O1 -Ob1" -DNDEBUG --generate-code=arch=compute_61,code=[compute_61,sm_61] -Xcompiler=-MT</AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /external:I "F:/Programmation/Ecole/GPU-Depth-Estimation/libs/opencv/build/include"</AdditionalOptions>
+      <AssemblerListingLocation>$(IntDir)</AssemblerListingLocation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ExternalWarningLevel>TurnOffAllWarnings</ExternalWarningLevel>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <UseFullPaths>false</UseFullPaths>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR="RelWithDebInfo"</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>%(PreprocessorDefinitions);WIN32;_WINDOWS;NDEBUG;CMAKE_INTDIR=\"RelWithDebInfo\"</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\include;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <Link>
+      <AdditionalDependencies>RelWithDebInfo\PlaneSweepCUDA.lib;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.1\lib\x64\cuda.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\opencv_world470.lib;cudadevrt.lib;cudart_static.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;comdlg32.lib;advapi32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>%(AdditionalOptions) /machine:x64</AdditionalOptions>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <ImportLibrary>F:/Programmation/Ecole/GPU-Depth-Estimation/build/RelWithDebInfo/PlaneSweep.lib</ImportLibrary>
+      <ProgramDataBaseFile>F:/Programmation/Ecole/GPU-Depth-Estimation/build/bin/RelWithDebInfo/PlaneSweep.pdb</ProgramDataBaseFile>
+      <SubSystem>Console</SubSystem>
+    </Link>
+    <ProjectReference>
+      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+    </ProjectReference>
+    <CudaLink>
+      <AdditionalOptions>-forward-unknown-to-host-compiler -Wno-deprecated-gpu-targets -D_WINDOWS -Xcompiler=" /GR /EHsc" -Xcompiler=" -Zi -O2 -Ob1" -DNDEBUG --generate-code=arch=compute_61,code=[compute_61,sm_61] -Xcompiler=-MT</AdditionalOptions>
+      <PerformDeviceLink>true</PerformDeviceLink>
+    </CudaLink>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="F:\Programmation\Ecole\GPU-Depth-Estimation\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule F:/Programmation/Ecole/GPU-Depth-Estimation/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SF:/Programmation/Ecole/GPU-Depth-Estimation -BF:/Programmation/Ecole/GPU-Depth-Estimation/build --check-stamp-file F:/Programmation/Ecole/GPU-Depth-Estimation/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCUDAInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCUDACompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCXXCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeRCCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeSystem.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\detect_cuda_compute_capabilities.cu;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig-version.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-debug.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-release.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule F:/Programmation/Ecole/GPU-Depth-Estimation/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SF:/Programmation/Ecole/GPU-Depth-Estimation -BF:/Programmation/Ecole/GPU-Depth-Estimation/build --check-stamp-file F:/Programmation/Ecole/GPU-Depth-Estimation/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCUDAInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCUDACompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCXXCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeRCCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeSystem.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\detect_cuda_compute_capabilities.cu;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig-version.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-debug.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-release.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule F:/Programmation/Ecole/GPU-Depth-Estimation/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SF:/Programmation/Ecole/GPU-Depth-Estimation -BF:/Programmation/Ecole/GPU-Depth-Estimation/build --check-stamp-file F:/Programmation/Ecole/GPU-Depth-Estimation/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCUDAInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCUDACompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCXXCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeRCCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeSystem.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\detect_cuda_compute_capabilities.cu;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig-version.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-debug.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-release.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule F:/Programmation/Ecole/GPU-Depth-Estimation/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SF:/Programmation/Ecole/GPU-Depth-Estimation -BF:/Programmation/Ecole/GPU-Depth-Estimation/build --check-stamp-file F:/Programmation/Ecole/GPU-Depth-Estimation/build/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCUDAInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCXXInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeGenericSystem.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeLanguageInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeRCInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\CheckLanguage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Compiler\NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindCUDA\select_compute_arch.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageHandleStandardArgs.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\FindPackageMessage.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows-NVIDIA-CUDA.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\Windows.cmake;C:\Program Files\CMake\share\cmake-3.26\Modules\Platform\WindowsPaths.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCUDACompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeCXXCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeRCCompiler.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\3.26.1\CMakeSystem.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\build\detect_cuda_compute_capabilities.cu;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig-version.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVConfig.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-debug.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules-release.cmake;F:\Programmation\Ecole\GPU-Depth-Estimation\libs\opencv\build\x64\vc16\lib\OpenCVModules.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">F:\Programmation\Ecole\GPU-Depth-Estimation\build\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="F:\Programmation\Ecole\GPU-Depth-Estimation\kernels\main.cuh">
+    </None>
+    <ClInclude Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\block.h" />
+    <ClCompile Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\cam_params.cpp" />
+    <ClInclude Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\cam_params.hpp" />
+    <ClInclude Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\constants.hpp" />
+    <ClCompile Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\graph.cpp" />
+    <ClInclude Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\graph.h" />
+    <ClCompile Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\main.cpp" />
+    <ClCompile Include="F:\Programmation\Ecole\GPU-Depth-Estimation\src\maxflow.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="F:\Programmation\Ecole\GPU-Depth-Estimation\build\ZERO_CHECK.vcxproj">
+      <Project>{C15721CF-7645-31C5-9BD2-7FDFD147170B}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="F:\Programmation\Ecole\GPU-Depth-Estimation\build\PlaneSweepCUDA.vcxproj">
+      <Project>{C64A2A35-3465-357A-922B-4B3F87AFE595}</Project>
+      <Name>PlaneSweepCUDA</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\CUDA 12.1.targets" />
+  </ImportGroup>
+</Project>
