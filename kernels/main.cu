@@ -1,8 +1,8 @@
 #include "main.cuh"
 
-__global__ void dev_sweep(gpuCam* cam, char* x)
+__global__ void dev_sweep(gpuCam* cam, double* x)
 {
-	*x = cam[0].name[2];
+	*x = cam[1].R_inv[0];
 }
 
 gpuCam* transform_cams(vector<cam> const& cam_vector)
@@ -12,15 +12,45 @@ gpuCam* transform_cams(vector<cam> const& cam_vector)
 	for (int i = 0; i < cam_vector.size(); i++)
 	{
 		cam camera = cam_vector.at(i);
+		
 		char* name;
-
 		cudaMalloc((void**)&name, camera.name.size());
 		cudaMemcpy(name, camera.name.data(), camera.name.size(), cudaMemcpyHostToDevice);
+
+		double* K;
+		cudaMalloc((void**)&K, camera.p.K.size() * sizeof(double));
+		cudaMemcpy(K, camera.p.K.data(), camera.p.K.size() * sizeof(double), cudaMemcpyHostToDevice);
+		
+		double* R;
+		cudaMalloc((void**)&R, camera.p.R.size() * sizeof(double));
+		cudaMemcpy(R, camera.p.R.data(), camera.p.R.size() * sizeof(double), cudaMemcpyHostToDevice);		
+		
+		double* t;
+		cudaMalloc((void**)&t, camera.p.t.size() * sizeof(double));
+		cudaMemcpy(t, camera.p.t.data(), camera.p.t.size() * sizeof(double), cudaMemcpyHostToDevice);
+
+		double* K_inv;
+		cudaMalloc((void**)&K_inv, camera.p.K_inv.size() * sizeof(double));
+		cudaMemcpy(K_inv, camera.p.K_inv.data(), camera.p.K_inv.size() * sizeof(double), cudaMemcpyHostToDevice);
+		
+		double* R_inv;
+		cudaMalloc((void**)&R_inv, camera.p.R_inv.size() * sizeof(double));
+		cudaMemcpy(R_inv, camera.p.R_inv.data(), camera.p.R_inv.size() * sizeof(double), cudaMemcpyHostToDevice);
+		
+		double* t_inv;
+		cudaMalloc((void**)&t_inv, camera.p.t_inv.size() * sizeof(double));
+		cudaMemcpy(t_inv, camera.p.t_inv.data(), camera.p.t_inv.size() * sizeof(double), cudaMemcpyHostToDevice);
 
 		cameras[i].size = camera.size;
 		cameras[i].width = camera.width;
 		cameras[i].height = camera.height;
 		cameras[i].name = name;
+		cameras[i].K = K;
+		cameras[i].R = R;
+		cameras[i].t = t;
+		cameras[i].K_inv = K_inv;
+		cameras[i].R_inv = R_inv;
+		cameras[i].t_inv = t_inv;
 	}
 
 	return cameras;
@@ -33,10 +63,10 @@ void gpu_sweeping_plane(cam const ref, std::vector<cam> const& cam_vector, int w
 
 	gpuCam* gpuCams = transform_cams(cam_vector);
 	gpuCam* dev_gpuCameras;
-	char* dev_result;
+	double* dev_result;
 
 	cudaMalloc((void**)&dev_gpuCameras, sizeof(gpuCam) * cam_vector.size());
-	cudaMalloc((void**)&dev_result, sizeof(char));
+	cudaMalloc((void**)&dev_result, sizeof(double));
 
 	// 2 - Copy data to GPU
 	cudaMemcpy(dev_gpuCameras, gpuCams, sizeof(gpuCam) * cam_vector.size(), cudaMemcpyHostToDevice);
@@ -49,17 +79,29 @@ void gpu_sweeping_plane(cam const ref, std::vector<cam> const& cam_vector, int w
 	cudaDeviceSynchronize();
 	
 	// 4 - Extract result from GPU
-	char res = 0;
-	cudaMemcpy(&res, dev_result, sizeof(char), cudaMemcpyDeviceToHost);
+	double res = 0;
+	cudaMemcpy(&res, dev_result, sizeof(double), cudaMemcpyDeviceToHost);
 
 	cout << res << endl;
-	cout << cam_vector.at(0).name.at(2) << endl;
+	cout << cam_vector.at(1).p.R_inv[0] << endl;
 	
 	// 5 - Free CPU and/or GPU memory
 	for (int i = 0; i < cam_vector.size(); i++)
 	{
 		cudaFree(&(dev_gpuCameras[i].name));
 		cudaFree(&(gpuCams[i].name));
+		cudaFree(&(dev_gpuCameras[i].K));
+		cudaFree(&(gpuCams[i].K));		
+		cudaFree(&(dev_gpuCameras[i].R));
+		cudaFree(&(gpuCams[i].R));		
+		cudaFree(&(dev_gpuCameras[i].t));
+		cudaFree(&(gpuCams[i].t));		
+		cudaFree(&(dev_gpuCameras[i].K_inv));
+		cudaFree(&(gpuCams[i].K_inv));		
+		cudaFree(&(dev_gpuCameras[i].R_inv));
+		cudaFree(&(gpuCams[i].R_inv));		
+		cudaFree(&(dev_gpuCameras[i].t_inv));
+		cudaFree(&(gpuCams[i].t_inv));
 	}
 
 	cudaFree(dev_gpuCameras);
