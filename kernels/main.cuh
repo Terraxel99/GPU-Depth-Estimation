@@ -15,4 +15,4 @@
 using namespace std;
 
 // This is the public interface of our cuda function, called directly in main.cpp
-void gpu_sweeping_plane(cam const ref, std::vector<cam> const& cam_vector, int window = 3);
+void gpu_sweeping_plane(std::vector<cam> const& cam_vector, int ref_cam_index, int window);

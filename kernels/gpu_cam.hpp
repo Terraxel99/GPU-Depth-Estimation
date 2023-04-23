@@ -5,7 +5,7 @@ typedef struct gpuCam {
 	int height;
 	int size;
 	char* name;
-	//uint8_t* YChannelData;
+	uint8_t* YChannelData;
 	double* K;
 	double* R;
 	double* t;

@@ -122,7 +122,7 @@ std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_v
 								continue;
 							if (y_proj + k < 0 || y_proj + k >= cam.height)
 								continue;
-							
+
 							// Y
 							cost += fabs(ref.YUV[0].at<uint8_t>(y + k, x + l) - cam.YUV[0].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
 							// U
@@ -280,7 +280,7 @@ int main()
 	// Read cams
 	std::vector<cam> cam_vector = read_cams("data");
 
-	gpu_sweeping_plane(cam_vector.at(0), cam_vector, 5);
+	gpu_sweeping_plane(cam_vector, 1, 5);
 
 	printf("Completed");
 
