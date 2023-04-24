@@ -6,9 +6,13 @@
 
 #include "cam_params.hpp"
 
-const float ZNear = 0.3f;
+/*const float ZNear = 0.3f;
 const float ZFar = 1.1f;
-const int ZPlanes = 256;
+const int ZPlanes = 256;*/
+
+#define ZNear 0.3f
+#define ZFar 1.1f
+#define ZPlanes 256
 
 typedef unsigned char u_char;
 

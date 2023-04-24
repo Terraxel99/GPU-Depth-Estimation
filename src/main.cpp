@@ -124,7 +124,8 @@ std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_v
 								continue;
 
 							// Y
-							cost += fabs(ref.YUV[0].at<uint8_t>(y + k, x + l) - cam.YUV[0].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
+							cost += fabs(ref.YUV[0].at<uint8_t>(y + k, x + l) - 
+								cam.YUV[0].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
 							// U
 							// cost += fabs(ref.YUV[1].at<uint8_t >(y + k, x + l) - cam.YUV[1].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
 							// V
@@ -280,22 +281,23 @@ int main()
 	// Read cams
 	std::vector<cam> cam_vector = read_cams("data");
 
-	gpu_sweeping_plane(cam_vector, 1, 5);
-
-	printf("Completed");
-
-	return 0;
+	std::vector<cv::Mat> cost_cube = gpu_sweeping_plane(cam_vector, 0, 5);
 
 	// Sweeping algorithm for camera 0
-	std::vector<cv::Mat> cost_cube = sweeping_plane(cam_vector.at(0), cam_vector, 5);
+	//std::vector<cv::Mat> cost_cube_cpu = sweeping_plane(cam_vector.at(0), cam_vector, 5);
+
+	cv::imwrite("./GPU_COST_CUBE_LAYER_255.png", cost_cube[255]);
+
+	/*cv::imshow("CPU layer 255", cost_cube_cpu[255]);
+	cv::imwrite("./CPU_COST_CUBE_LAYER_255.png", cost_cube_cpu[255]);*/
 
 	// Use graph cut to generate depth map 
 	// Cleaner results, long compute time
-	cv::Mat depth = depth_estimation_by_graph_cut_sWeight(cost_cube);
+	//cv::Mat depth = depth_estimation_by_graph_cut_sWeight(cost_cube);
 
 	// Find min cost and generate depth map
 	// Faster result, low quality
-	//cv::Mat depth = find_min(cost_cube);
+	cv::Mat depth = find_min(cost_cube);
 
 
 	cv::namedWindow("Depth", cv::WINDOW_NORMAL);
