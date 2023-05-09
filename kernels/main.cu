@@ -7,8 +7,203 @@ inline int get_cube_index(int width, int height, int planeNb, int x, int y)
 	return (planeNb * width * height) + (y * width) + x;
 }
 
+__device__
+inline void set_local_window(int x, int y, int x_end, int window, int width, int height, uint8_t* YChannelData, uint8_t* local_window)
+{
+	//set the local window for the pixel at (x,y) to (x_end,y) with a 2D window of size window x (window + the new cols)
+	int local_window_index = 0;
+	for (int i = y + (-window / 2); i <= y + (window / 2); i++)
+	{
+		for (int j = x + (-window / 2); j <= x_end + (window / 2); j++)
+		{
+			if (i < 0 || i >= height || j < 0 || j >= width)
+			{
+				local_window[local_window_index] = NULL;
+			}
+			else
+			{
+				local_window[local_window_index] = YChannelData[(i * width) + j];
+			}
+			local_window_index++;
+		}
+	}
+}
+
+__global__ //use of external function to setup the windows for the costcube calculation
+void dev_sweepV3(gpuCam* cams, float* result, int window, int nbCams, int ref_cam_index)
+{
+	int threadGlobalId = blockDim.x * blockIdx.x + threadIdx.x;
+	int idx = threadGlobalId * NB_ELEMENT_PER_THREAD;
+	gpuCam ref = cams[ref_cam_index];
+
+	for (int offset = 0; offset < NB_ELEMENT_PER_THREAD; offset++) {
+		if (idx + offset >= ref.width * ref.height)
+		{
+			return;
+		}
+
+		// Mapping thread ID to 2D coordinate on the plane
+		int x = (idx + offset) % ref.width;
+		int y = (idx + offset) / ref.width;
+
+		uint8_t local_window55[5 * 5];
+		set_local_window(x, y, x, window, ref.width, ref.height, ref.YChannelData, local_window55);
+
+		// For each camera, calculating cost cube value for pixel
+		for (int i = 0; i < nbCams; i++)
+		{
+
+			// Skipping reference camera
+			if (i == ref_cam_index)
+			{
+				continue;
+			}
+
+			// Treating all the layers for the pixel
+			for (int zi = 0; zi < ZPlanes; zi++)
+			{
+				double z = ZNear * ZFar / (ZNear + (((double)zi / (double)ZPlanes) * (ZFar - ZNear)));
+
+				double X_ref = (ref.K_inv[0] * x + ref.K_inv[1] * y + ref.K_inv[2]) * z;
+				double Y_ref = (ref.K_inv[3] * x + ref.K_inv[4] * y + ref.K_inv[5]) * z;
+				double Z_ref = (ref.K_inv[6] * x + ref.K_inv[7] * y + ref.K_inv[8]) * z;
+
+				double X = ref.R_inv[0] * X_ref + ref.R_inv[1] * Y_ref + ref.R_inv[2] * Z_ref - ref.t_inv[0];
+				double Y = ref.R_inv[3] * X_ref + ref.R_inv[4] * Y_ref + ref.R_inv[5] * Z_ref - ref.t_inv[1];
+				double Z = ref.R_inv[6] * X_ref + ref.R_inv[7] * Y_ref + ref.R_inv[8] * Z_ref - ref.t_inv[2];
+
+				double X_proj = cams[i].R[0] * X + cams[i].R[1] * Y + cams[i].R[2] * Z - cams[i].t[0];
+				double Y_proj = cams[i].R[3] * X + cams[i].R[4] * Y + cams[i].R[5] * Z - cams[i].t[1];
+				double Z_proj = cams[i].R[6] * X + cams[i].R[7] * Y + cams[i].R[8] * Z - cams[i].t[2];
+
+				double x_proj = (cams[i].K[0] * X_proj / Z_proj + cams[i].K[1] * Y_proj / Z_proj + cams[i].K[2]);
+				double y_proj = (cams[i].K[3] * X_proj / Z_proj + cams[i].K[4] * Y_proj / Z_proj + cams[i].K[5]);
+				double z_proj = Z_proj;
+
+				x_proj = x_proj < 0 || x_proj >= cams[i].width ? 0 : roundf(x_proj);
+				y_proj = y_proj < 0 || y_proj >= cams[i].height ? 0 : roundf(y_proj);
+
+				float cost = 0.0f;
+				float cc = 0.0f;
+
+				uint8_t curr_window55[5 * 5];
+				set_local_window(x_proj, y_proj, x_proj, window, cams[i].width, cams[i].height, cams[i].YChannelData, curr_window55);
+
+				for (int k = 0; k < window; k++)
+				{
+					for (int l = 0; l < window; l++)
+					{
+
+						uint8_t refCamYChannel = local_window55[k * window + l];
+						uint8_t currentCamYChannel = curr_window55[k * window + l];
+
+						if (refCamYChannel == NULL || currentCamYChannel == NULL) continue;
+
+						cost += fabs((double)(refCamYChannel - currentCamYChannel));
+
+						cc += 1.0f;
+					}
+				}
+
+				cost /= cc;
+
+				int resultIndex = get_cube_index(ref.width, ref.height, zi, x, y);
+				result[resultIndex] = fminf(result[resultIndex], cost);
+			}
+		}
+	}
+
+}
+
+__global__ //allows multiple element per thread
+void dev_sweepV2(gpuCam* cams, float* result, int window, int nbCams, int ref_cam_index)
+{
+	int threadGlobalId = blockDim.x * blockIdx.x + threadIdx.x;
+	int idx = threadGlobalId * NB_ELEMENT_PER_THREAD;
+	gpuCam ref = cams[ref_cam_index];
+
+	for (int offset = 0; offset < NB_ELEMENT_PER_THREAD; offset++) {
+		if (idx + offset >= ref.width * ref.height)
+		{
+			return;
+		}
+
+		// Mapping thread ID to 2D coordinate on the plane
+		int x = (idx + offset) % ref.width;
+		int y = (idx + offset) / ref.width;
+
+
+		// For each camera, calculating cost cube value for pixel
+		for (int i = 0; i < nbCams; i++)
+		{
+
+			// Skipping reference camera
+			if (i == ref_cam_index)
+			{
+				continue;
+			}
+
+			// Treating all the layers for the pixel
+			for (int zi = 0; zi < ZPlanes; zi++)
+			{
+				double z = ZNear * ZFar / (ZNear + (((double)zi / (double)ZPlanes) * (ZFar - ZNear)));
+
+				double X_ref = (ref.K_inv[0] * x + ref.K_inv[1] * y + ref.K_inv[2]) * z;
+				double Y_ref = (ref.K_inv[3] * x + ref.K_inv[4] * y + ref.K_inv[5]) * z;
+				double Z_ref = (ref.K_inv[6] * x + ref.K_inv[7] * y + ref.K_inv[8]) * z;
+
+				double X = ref.R_inv[0] * X_ref + ref.R_inv[1] * Y_ref + ref.R_inv[2] * Z_ref - ref.t_inv[0];
+				double Y = ref.R_inv[3] * X_ref + ref.R_inv[4] * Y_ref + ref.R_inv[5] * Z_ref - ref.t_inv[1];
+				double Z = ref.R_inv[6] * X_ref + ref.R_inv[7] * Y_ref + ref.R_inv[8] * Z_ref - ref.t_inv[2];
+
+				double X_proj = cams[i].R[0] * X + cams[i].R[1] * Y + cams[i].R[2] * Z - cams[i].t[0];
+				double Y_proj = cams[i].R[3] * X + cams[i].R[4] * Y + cams[i].R[5] * Z - cams[i].t[1];
+				double Z_proj = cams[i].R[6] * X + cams[i].R[7] * Y + cams[i].R[8] * Z - cams[i].t[2];
+
+				double x_proj = (cams[i].K[0] * X_proj / Z_proj + cams[i].K[1] * Y_proj / Z_proj + cams[i].K[2]);
+				double y_proj = (cams[i].K[3] * X_proj / Z_proj + cams[i].K[4] * Y_proj / Z_proj + cams[i].K[5]);
+				double z_proj = Z_proj;
+
+				x_proj = x_proj < 0 || x_proj >= cams[i].width ? 0 : roundf(x_proj);
+				y_proj = y_proj < 0 || y_proj >= cams[i].height ? 0 : roundf(y_proj);
+
+				float cost = 0.0f;
+				float cc = 0.0f;
+
+				for (int k = -window / 2; k <= window / 2; k++)
+				{
+					for (int l = -window / 2; l <= window / 2; l++)
+					{
+						if (x + l < 0 || x + l >= ref.width)
+							continue;
+						if (y + k < 0 || y + k >= ref.height)
+							continue;
+						if (x_proj + l < 0 || x_proj + l >= cams[i].width)
+							continue;
+						if (y_proj + k < 0 || y_proj + k >= cams[i].height)
+							continue;
+
+						uint8_t refCamYChannel = ref.YChannelData[((y + k) * ref.width) + (x + l)];
+						uint8_t currentCamYChannel = cams[i].YChannelData[(((int)y_proj + k) * cams[i].width) + ((int)x_proj + l)];
+
+
+						cost += fabs((double)(refCamYChannel - currentCamYChannel));
+
+						cc += 1.0f;
+					}
+				}
+
+				cost /= cc;
+
+				int resultIndex = get_cube_index(ref.width, ref.height, zi, x, y);
+				result[resultIndex] = fminf(result[resultIndex], cost);
+			}
+		}
+	}
+}
+
 __global__
-void dev_sweep(gpuCam* cams, float* result, int window, int nbCams, int ref_cam_index)
+void dev_sweepV1(gpuCam* cams, float* result, int window, int nbCams, int ref_cam_index)
 {
 	int threadGlobalId = blockDim.x * blockIdx.x + threadIdx.x;
 	gpuCam ref = cams[ref_cam_index];
@@ -144,10 +339,14 @@ gpuCam* transform_cams(vector<cam> const& cam_vector)
 	return cameras;
 }
 
-std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int ref_cam_index, int window)
+std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int ref_cam_index, int window, float* runtime)
 {
 	// 1 - Preprocess data and set GPU device
 	cudaSetDevice(0);
+
+	cudaEvent_t start_gpu, stop_gpu;
+	cudaEventCreate(&start_gpu);
+	cudaEventCreate(&stop_gpu);
 
 	gpuCam* gpuCams = transform_cams(cam_vector);
 	const gpuCam ref = gpuCams[ref_cam_index];
@@ -174,19 +373,24 @@ std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int 
 	const dim3 nbBlocks(NB_BLOCKS);
 	const dim3 nbThreadsPerBlock(NB_THREADS_PER_BLOCK);
 
-	cout << "Launching GPU kernel on " << NB_BLOCKS << " blocks and " << NB_THREADS_PER_BLOCK << " threads per block" << endl;
+	//cout << "Launching GPU kernel on " << NB_BLOCKS << " blocks and " << NB_THREADS_PER_BLOCK << " threads per block" << endl;
 
-	dev_sweep << <nbBlocks, nbThreadsPerBlock >> > (dev_gpuCameras, dev_result, window, cam_vector.size(), ref_cam_index);
+	cudaEventRecord(start_gpu);
+	dev_sweepV3 << <nbBlocks, nbThreadsPerBlock >> > (dev_gpuCameras, dev_result, window, cam_vector.size(), ref_cam_index);
+	cudaEventRecord(stop_gpu);
 
 	cudaDeviceSynchronize();
 
-	cout << "Kernel exited" << endl;
+	//cout << "Kernel exited" << endl;
 
 	auto err = cudaGetLastError();
-	printf("CUDA status : %s\n\n", cudaGetErrorString(err));
+	//printf("CUDA status : %s\n\n", cudaGetErrorString(err));
 
 	// 4 - Extract result from GPU
 	cudaMemcpy(res, dev_result, resultArrSize * sizeof(float), cudaMemcpyDeviceToHost);
+
+	cudaEventSynchronize(stop_gpu);
+	cudaEventElapsedTime(runtime, start_gpu, stop_gpu);
 
 	// 5 - Free CPU and/or GPU memory
 	for (int i = 0; i < cam_vector.size(); i++)
@@ -216,8 +420,8 @@ std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int 
 
 	// 6 - Build & return cost cube	(TODO) + free its memory space
 
-	cout << "GPU memory has been freed" << endl;
-	cout << "Re-building opencv wrapper (OpenCV::Mat) cost cube vector" << endl;
+	//cout << "GPU memory has been freed" << endl;
+	//cout << "Re-building opencv wrapper (OpenCV::Mat) cost cube vector" << endl;
 
 	std::vector<cv::Mat> cost_cube(ZPlanes);
 
@@ -233,7 +437,7 @@ std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int 
 		}
 	}
 
-	cout << "Cost cube vector has been re-built" << endl << endl;
+	//cout << "Cost cube vector has been re-built" << endl << endl;
 
 	free(res);
 

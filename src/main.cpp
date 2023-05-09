@@ -17,7 +17,7 @@
 
 #define SHRT_MAX 32767
 
-std::vector<cam> read_cams(std::string const &folder)
+std::vector<cam> read_cams(std::string const& folder)
 {
 	// Init parameters
 	std::vector<params<double>> cam_params_vector = get_cam_params();
@@ -54,7 +54,7 @@ std::vector<cam> read_cams(std::string const &folder)
 	// cv::waitKey(0);
 }
 
-std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_vector, int window = 3)
+std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const& cam_vector, int window = 3)
 {
 	// Initialization to MAX value
 	// std::vector<float> cost_cube(ref.width * ref.height * ZPlanes, 255.f);
@@ -66,7 +66,7 @@ std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_v
 	}
 
 	// For each camera in the setup (reference is skipped)
-	for (auto &cam : cam_vector)
+	for (auto& cam : cam_vector)
 	{
 		if (cam.name == ref.name)
 			continue;
@@ -126,7 +126,7 @@ std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_v
 								continue;
 
 							// Y
-							cost += fabs(ref.YUV[0].at<uint8_t>(y + k, x + l) - 
+							cost += fabs(ref.YUV[0].at<uint8_t>(y + k, x + l) -
 								cam.YUV[0].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
 							// U
 							// cost += fabs(ref.YUV[1].at<uint8_t >(y + k, x + l) - cam.YUV[1].at<uint8_t>((int)y_proj + k, (int)x_proj + l));
@@ -158,7 +158,7 @@ std::vector<cv::Mat> sweeping_plane(cam const ref, std::vector<cam> const &cam_v
 	return cost_cube;
 }
 
-cv::Mat find_min(std::vector<cv::Mat> const &cost_cube)
+cv::Mat find_min(std::vector<cv::Mat> const& cost_cube)
 {
 	const int zPlanes = cost_cube.size();
 	const int height = cost_cube[0].size().height;
@@ -210,7 +210,7 @@ cv::Mat depth_estimation_by_graph_cut_sWeight(std::vector<cv::Mat> const& cost_c
 	const int width = cost_cube[0].size().width;
 
 	//To store the depth values assigned to each pixels, start with 0
-	cv::Mat1w labels = cv::Mat::zeros(height, width, CV_16U); 
+	cv::Mat1w labels = cv::Mat::zeros(height, width, CV_16U);
 	//store the cost for a label
 	std::vector<double> m_aiEdgeCost;
 	double smoothing_lambda = 1.0;
@@ -237,7 +237,7 @@ cv::Mat depth_estimation_by_graph_cut_sWeight(std::vector<cv::Mat> const& cost_c
 			}
 		}
 
-		
+
 		for (int j = 0; j < height; j++) {
 			for (int i = 0; i < width; i++) {
 				const double cost_curr = m_aiEdgeCost[std::abs(labels(j, i) - source)];
@@ -265,7 +265,7 @@ cv::Mat depth_estimation_by_graph_cut_sWeight(std::vector<cv::Mat> const& cost_c
 			}
 		}
 		nodes.clear();
-		
+
 		/*
 		cv::namedWindow("labels", cv::WINDOW_NORMAL);
 		cv::imshow("labels", labels);
@@ -288,40 +288,53 @@ int main()
 	std::vector<cam> cam_vector = read_cams("data");
 
 	cout << "Starting sweeping plane algorithm on GPU" << endl;
-	chrono::steady_clock::time_point start_gpu = chrono::high_resolution_clock::now();
-	std::vector<cv::Mat> cost_cube = gpu_sweeping_plane(cam_vector, 0, 5);
-	chrono::steady_clock::time_point stop_gpu = chrono::high_resolution_clock::now();
-	auto gpu_runtime_ms = chrono::duration_cast<chrono::milliseconds>(stop_gpu - start_gpu).count();
-	cout << "GPU computation time : " << gpu_runtime_ms << " ms" << endl << endl;
+	
+	for (int i = 0; i < 16; i++) {
+		float gpu_runtime_ms;
+		std::vector<cv::Mat> cost_cube_gpu = gpu_sweeping_plane(cam_vector, 0, 5, &gpu_runtime_ms);
 
+		long long cpu_runtime_milliseconds = 206497;
+		
+		cout << gpu_runtime_ms<< " / " << (cpu_runtime_milliseconds / gpu_runtime_ms) << endl;
+		//cout << "CPU (mean) runtime (ms) : " << cpu_runtime_milliseconds << endl;
+		//cout << "GPU runtime (ms) : " << gpu_runtime_ms << endl;
+		//cout << "Speedup factor :" << (cpu_runtime_milliseconds / gpu_runtime_ms) << endl;
+	}
+
+	return 0;
 	// Sweeping algorithm for camera 0
-	cout << "Starting sweeping plane algorithm on CPU" << endl;
+	/*cout << "Starting sweeping plane algorithm on CPU" << endl;
 	chrono::steady_clock::time_point start_cpu = chrono::high_resolution_clock::now();
 	std::vector<cv::Mat> cost_cube_cpu = sweeping_plane(cam_vector.at(0), cam_vector, 5);
 	chrono::steady_clock::time_point stop_cpu = chrono::high_resolution_clock::now();
 	auto cpu_runtime_ms = chrono::duration_cast<chrono::milliseconds>(stop_cpu - start_cpu).count();
-	cout << "CPU computation time : " << cpu_runtime_ms << " ms" << endl;
-
-	cout << "Speedup factor :" << (cpu_runtime_ms / gpu_runtime_ms) << endl;
-
-	return 0;
+	cout << "CPU computation time : " << cpu_runtime_ms << " ms" << endl;*/
 
 	// Use graph cut to generate depth map 
 	// Cleaner results, long compute time
-	cout << "Starting graph cut computation (CPU)" << endl;
-	cv::Mat depth = depth_estimation_by_graph_cut_sWeight(cost_cube);
+	//cout << "Starting graph cut computation (CPU img)" << endl;
+	//cv::Mat depth_cpu = depth_estimation_by_graph_cut_sWeight(cost_cube_cpu);
+	//cv::Mat depth_cpu = find_min(cost_cube_cpu);
+	//cout << "Graph cut algorithm completed" << endl << endl;
+	cout << "Starting graph cut computation (GPU img)" << endl;
+	//cv::Mat depth_gpu = depth_estimation_by_graph_cut_sWeight(cost_cube_gpu);
+	//cv::Mat depth_gpu = find_min(cost_cube_gpu);
 	cout << "Graph cut algorithm completed" << endl << endl;
 
 	// Find min cost and generate depth map
 	// Faster result, low quality
 	//cv::Mat depth = find_min(cost_cube);
 
-	cout << "Displaying and writing results..." << endl;
-	cv::namedWindow("Depth", cv::WINDOW_NORMAL);
-	cv::imshow("Depth", depth);
+	//cout << "Displaying and writing results..." << endl;
+	//cv::namedWindow("Depth_cpu", cv::WINDOW_NORMAL);
+	//cv::imshow("Depth_cpu", depth_cpu);
+
+	cv::namedWindow("Depth_gpu", cv::WINDOW_NORMAL);
+	//cv::imshow("Depth_gpu", depth_gpu);
 	cv::waitKey(0);
 
-	cv::imwrite("./depth_map.png", depth);
+	//cv::imwrite("./depth_map_cpu.png", depth_cpu);
+	//cv::imwrite("./depth_map_gpu.png", depth_gpu);
 
 	cout << "Program completed" << endl;
 

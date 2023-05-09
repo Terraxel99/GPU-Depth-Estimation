@@ -16,8 +16,9 @@
 
 #define NB_BLOCKS 16200
 #define NB_THREADS_PER_BLOCK 128
+#define NB_ELEMENT_PER_THREAD 1
 
 using namespace std;
 
 // This is the public interface of our cuda function, called directly in main.cpp
-std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int ref_cam_index, int window);
+std::vector<cv::Mat> gpu_sweeping_plane(std::vector<cam> const& cam_vector, int ref_cam_index, int window, float* runtime);
